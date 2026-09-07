@@ -1,0 +1,93 @@
+/* ============================================================
+   BLANK PAGE CO — Cream Paper Design System
+   Style: Soft pastel minimalism / paper-toned aesthetic
+   ============================================================ */
+
+:root {
+    /* --- Surfaces (warm paper palette) --- */
+    --surface-paper:  #FAF7F0;
+    --surface-card:   #FFFFFF;
+    --surface-soft:   #F2EEE4;
+    --surface-accent: #F5DDA4;
+    --surface-accent-2: #FFE9B5;
+    --surface-blob:   #F5DDA4;
+
+    /* --- Ink (text + strokes) --- */
+    --ink-strong:  #1A1A1A;
+    --ink-default: #2A2622;
+    --ink-muted:   #6B6357;
+    --ink-faint:   #A39A8C;
+    --ink-inverse: #FAF7F0;
+
+    /* --- Borders & strokes --- */
+    --stroke-default: #1A1A1A;
+    --stroke-soft:    #E5DFD2;
+    --stroke-width:   1px;
+    --stroke-bold:    2px;
+
+    /* --- Status (muted, paper-friendly) --- */
+    --status-success: #4A7C59;
+    --status-warning: #C28A2C;
+    --status-danger:  #B54A3C;
+    --status-info:    #4A6B8C;
+    --status-running: #1A1A1A;
+
+    /* --- Type scale --- */
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', 'SF Mono', ui-monospace, Menlo, monospace;
+    --fs-display: clamp(36px, 5vw, 44px);
+    --fs-h1: clamp(28px, 4vw, 32px);
+    --fs-h2: clamp(20px, 3vw, 22px);
+    --fs-h3: 17px;
+    --fs-body: 16px;
+    --fs-small: 14px;
+    --fs-tiny: 11px;
+    --lh-tight: 1.15;
+    --lh-normal: 1.5;
+    --lh-loose: 1.7;
+
+    /* --- Spacing (4px base) --- */
+    --s-1: 4px;
+    --s-2: 8px;
+    --s-3: 12px;
+    --s-4: 16px;
+    --s-5: 20px;
+    --s-6: 24px;
+    --s-8: 32px;
+    --s-10: 40px;
+    --s-12: 48px;
+    --s-16: 64px;
+
+    /* --- Radii --- */
+    --r-sm: 6px;
+    --r-md: 10px;
+    --r-lg: 14px;
+    --r-xl: 20px;
+    --r-pill: 999px;
+
+    /* --- Elevation & shadows --- */
+    --shadow-1: 0 1px 0 rgba(26,26,26,0.04);
+    --shadow-2: 0 2px 0 rgba(26,26,26,0.05);
+
+    /* Hard offset shadow — the signature */
+    --shadow-offset-sm:  2px 2px 0 0 var(--ink-strong);
+    --shadow-offset-md:  4px 4px 0 0 var(--ink-strong);
+    --shadow-offset-lg:  6px 6px 0 0 var(--ink-strong);
+    --shadow-offset-xl:  8px 8px 0 0 var(--ink-strong);
+
+    /* Stacked: for popovers/menus */
+    --shadow-stacked:    2px 2px 0 0 var(--ink-strong),
+                         6px 6px 0 0 rgba(26,26,26,0.30);
+
+    /* Focus ring */
+    --focus-ring: 0 0 0 2px var(--surface-paper), 0 0 0 4px var(--ink-strong);
+
+    /* --- Motion --- */
+    --ease: cubic-bezier(.4,.0,.2,1);
+    --dur-fast: 120ms;
+    --dur-base: 200ms;
+
+    /* --- Layout --- */
+    --container-width: 1200px;
+    --header-height: 80px;
+}
