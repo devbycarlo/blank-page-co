@@ -1,321 +1,342 @@
-# Blank Page Co
+# Blank Page Co ✨
 
-A clean, minimal WordPress theme for digital stores and creative portfolios. Built with the Cream Paper design system — warm paper tones, ink-strong outlines, and signature hard offset shadows.
+**Your digital products deserve a beautiful home.**
 
----
-
-## Features
-
-- **Custom Product Post Type** — Add products with pricing, download URLs, features
-- **Product Categories** — Organize products with taxonomy
-- **Cream Paper Design System** — Warm, minimal aesthetic with hard offset shadows
-- **Responsive Design** — Mobile-first with hamburger menu
-- **Customizer Settings** — Hero section, brand colors, footer
-- **Product Detail Pages** — Gallery, pricing, features list, related products
-- **Category Filtering** — Filter products on homepage and archive
-- **Inter Font** — Clean, modern typography from Google Fonts
+A clean, minimal WordPress theme for selling digital products. Think cozy paper vibes, bold ink outlines, and those satisfying hard shadow offsets that make everything pop.
 
 ---
 
-## Installation
+## What You're Getting 🎁
 
-### Manual Install
+| Feature | Why It's Cool |
+|---------|---------------|
+| 🛒 **Product System** | Sell templates, fonts, graphics — with prices, downloads, and features built right in |
+| 🎨 **Cream Paper Design** | Warm tones, crisp borders, and that signature "riso print" shadow effect |
+| 📱 **Mobile Ready** | Looks great on phones, tablets, and massive monitors |
+| ⚡ **No Bloat** | Just the essentials — no page builder required |
+| 🎛️ **Easy Customizer** | Change colors, hero text, and footer without touching code |
 
-1. Download the `blank-page-co` theme folder
-2. Upload to `wp/wp-content/themes/blank-page-co/`
-3. Activate via **Appearance → Themes** in WordPress admin
+---
 
-### Directory Structure
+## Getting Started (5 Minutes Max) 🚀
 
+### Step 1: Drop It In
+
+Upload the `blank-page-co` folder to:
 ```
-wp/
-└── wp-content/
-    └── themes/
-        └── blank-page-co/
-            ├── style.css
-            ├── functions.php
-            ├── header.php
-            ├── footer.php
-            ├── front-page.php
-            ├── single-product.php
-            ├── archive-product.php
-            ├── index.php
-            ├── page.php
-            ├── single.php
-            ├── 404.php
-            ├── search.php
-            ├── searchform.php
-            ├── comments.php
-            ├── readme.md
-            ├── assets/
-            │   ├── css/
-            │   │   ├── design-system.css
-            │   │   └── theme.css
-            │   └── js/
-            │       └── theme.js
-            ├── template-parts/
-            │   ├── content.php
-            │   ├── content-none.php
-            │   ├── content-page.php
-            │   ├── content-single.php
-            │   └── content-product-card.php
-            └── inc/
-                └── customizer.php
+wp/wp-content/themes/
 ```
 
----
+### Step 2: Activate
 
-## Quick Start
+**Appearance → Themes → Activate "Blank Page Co"**
 
-### 1. Activate the Theme
+### Step 3: Set Your Homepage
 
-1. Go to **Appearance → Themes**
-2. Click **Activate** on "Blank Page Co"
-
-### 2. Set Up Homepage
-
-1. Create a page named "Home"
+1. Create a page called "Home"
 2. Go to **Settings → Reading**
-3. Set "Your homepage displays" to **A static page**
-4. Select "Home" as the Homepage
-5. Save changes
+3. Pick **"A static page"**
+4. Select "Home"
+5. Done! 🎉
 
-### 3. Create Menu
+### Step 4: Add Some Products
 
-1. Go to **Appearance → Menus**
-2. Create a new menu
-3. Add pages: Home, Shop, About
-4. Check **Primary Menu** under Display Location
-5. Save
+**Products → Add New Product**
 
-### 4. Add Products
-
-1. Go to **Products → Add New Product**
-2. Fill in title, description, featured image
-3. Set price in **Product Details** meta box
-4. Assign a category
-5. Publish
+That's it. Seriously. Keep reading for the fun details.
 
 ---
 
-## Custom Post Type: Products
+## Adding Products (The Fun Part) 🛍️
 
-The theme registers a `product` post type with:
+### Where's the Products Menu?
 
-| Feature | Details |
-|---------|---------|
-| Slug | `/product/` |
-| Archive | `/product/` |
-| Admin Menu | Products (with cart icon) |
-| REST API | Enabled |
-| Supports | Title, Editor, Thumbnail, Excerpt, Custom Fields |
+After activation, you'll see this in your sidebar:
 
-### Product Meta Fields
+```
+📝 Posts
+📁 Media
+📄 Pages
+🛒 Products        ← Right here!
+💬 Comments
+⚙️ Settings
+```
 
-| Field | Meta Key | Description |
-|-------|----------|-------------|
-| Price | `_bpco_product_price` | Regular price ($) |
-| Sale Price | `_bpco_product_sale_price` | Discounted price ($) |
-| Download URL | `_bpco_product_download_url` | Link to download file |
-| File Format | `_bpco_product_file_format` | e.g., PSD, AI, PDF, ZIP |
-| Features | `_bpco_product_features` | One feature per line |
+### Creating Your First Product
 
-### Product Categories
+**1. Give it a name**
+Type something catchy in the title field. "Minimal Templates Pack" > "Product 1"
 
-Custom taxonomy `product_category` with:
-- Hierarchical (like categories)
-- REST API enabled
-- Admin column display
+**2. Add a description**
+Tell people why they need this. Sell the dream!
+
+**3. Set a featured image**
+This is your product cover. Make it pretty.
+- **Size**: 600 x 600 pixels (square)
+- **Format**: JPG or PNG
+
+**4. Set the Price 💰**
+
+Scroll down to find the **"Product Details"** box:
+
+```
+┌─────────────────────────────────────────────────────┐
+│  📦 Product Details                                 │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│  Price ($) .............. [ 29.00 ]                 │
+│                                                     │
+│  Sale Price ($) ......... [ 19.00 ]  ← optional!    │
+│                                                     │
+│  Download URL ........... [ https://... ]           │
+│                                                     │
+│  File Format ............ [ PSD, AI, PDF ]          │
+│                                                     │
+│  Features ............... [ What's inside:          ]│
+│                           [ 20 templates            ]│
+│                           [ Fully editable          ]│
+│                           [ Works with Canva        ]│
+│                                                     │
+└─────────────────────────────────────────────────────┘
+```
+
+**Price Tips:**
+- Regular price: `29.00` (just numbers, no $ sign)
+- Sale price: `19.00` (shows crossed-out original price)
+- Leave sale price empty if there's no discount
+
+**Download URL Ideas:**
+- Gumroad: `https://gumroad.com/l/yourproduct`
+- Google Drive: `https://drive.google.com/file/d/...`
+- Dropbox: `https://dl.dropboxusercontent.com/...`
+
+**Features Format:**
+Just hit Enter after each one:
+```
+20 minimal page layouts
+Fully customizable colors
+Works with Canva & Adobe
+Instant download
+Lifetime access
+```
+
+**5. Pick a Category**
+Check "Templates" or "Branding" — or create your own!
+
+**6. Hit Publish** 🚀
 
 ---
 
-## Customizer Settings
+## Making It Pretty 🎨
 
-Go to **Appearance → Customize**:
+### Change the Hero Text
 
-### Hero Section
+**Appearance → Customize → Hero Section**
 
-| Setting | Default |
-|---------|---------|
-| Hero Headline | Your Story Starts Here |
-| Hero Subheadline | Premium digital templates and resources for creators |
-| Hero Button Text | Browse Collection |
-| Hero Button URL | #products |
+| What | Where It Shows Up |
+|------|-------------------|
+| Headline | Big text at the top of homepage |
+| Subheadline | Smaller text below |
+| Button Text | "Browse Collection" etc. |
+| Button URL | Where the button goes |
 
-### Brand Colors
+### Change the Colors
 
-| Setting | Default |
-|---------|---------|
-| Primary Color | #1A1A1A |
-| Accent Color | #F5DDA4 |
-| Background Color | #FAF7F0 |
+**Appearance → Customize → Brand Colors**
 
-### Footer
+| Color | What It Affects | Default |
+|-------|-----------------|---------|
+| Primary | Buttons, borders, text | `#1A1A1A` (black) |
+| Accent | Highlights, badges | `#F5DDA4` (warm yellow) |
+| Background | Page background | `#FAF7F0` (cream) |
 
-| Setting | Default |
-|---------|---------|
-| Footer Copyright | All rights reserved. |
+### Color Palette Cheat Sheet
+
+```
+┌─────────────────────────────────────────────────────┐
+│  🎨 Cream Paper Palette                            │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│  ██████  #FAF7F0  Paper (background)               │
+│  ██████  #FFFFFF  Card (white)                      │
+│  ██████  #F2EEE4  Soft (subtle gray)               │
+│  ██████  #F5DDA4  Accent (warm yellow)              │
+│  ██████  #1A1A1A  Ink Strong (text/borders)         │
+│  ██████  #6B6357  Ink Muted (secondary text)        │
+│                                                     │
+└─────────────────────────────────────────────────────┘
+```
 
 ---
 
-## Design System
+## Page Templates 📄
 
-### Colors
+When creating a new page, pick a template from the **Page Attributes** box:
 
-| Name | Hex | Usage |
-|------|-----|-------|
-| Paper | `#FAF7F0` | Page background |
-| Card | `#FFFFFF` | Card backgrounds |
-| Soft | `#F2EEE4` | Subtle backgrounds |
-| Accent | `#F5DDA4` | Yellow highlights |
-| Accent 2 | `#FFE9B5` | Softer yellow |
-| Ink Strong | `#1A1A1A` | Primary text, borders |
-| Ink Default | `#2A2622` | Body text |
-| Ink Muted | `#6B6357` | Secondary text |
-| Ink Faint | `#A39A8C` | Placeholder text |
+| Template | What It Does |
+|----------|--------------|
+| **Front Page** | Homepage with hero + product grid |
+| **Default Template** | Regular page with content |
+| **Full Width** | No sidebar, full width content |
+
+---
+
+## File Structure (For the Curious) 🔍
+
+```
+blank-page-co/
+│
+├── 📄 style.css              ← Theme info
+├── ⚙️ functions.php          ← The magic (CPT, meta boxes, etc.)
+├── 🏠 header.php             ← Site header
+├── 🦶 footer.php             ← Site footer
+├── 🏡 front-page.php         ← Homepage
+├── 🛒 single-product.php     ← Product detail page
+├── 📦 archive-product.php    ← Product listing
+├── 📝 single.php             ← Blog post
+├── 📃 page.php               ← Generic page
+├── 🔍 search.php             ← Search results
+├── 💀 404.php                ← Oops page
+│
+├── 📁 assets/
+│   ├── 🎨 css/
+│   │   ├── design-system.css  ← Colors, fonts, spacing
+│   │   └── theme.css          ← All the styles
+│   └── ⚡ js/
+│       └── theme.js           ← Mobile menu, filters, hover effects
+│
+├── 📁 template-parts/
+│   ├── content.php            ← Post card
+│   ├── content-none.php       ← "Nothing found"
+│   ├── content-page.php       ← Page content
+│   ├── content-single.php     ← Single post
+│   └── content-product-card.php ← Product card (used in grids)
+│
+└── 📁 inc/
+    └── customizer.php         ← Customizer settings
+```
+
+---
+
+## The Design System 🎭
+
+### Those Shadows Though
+
+The signature look? **Hard offset shadows** — no blur, just pure ink:
+
+```css
+/* The vibe */
+box-shadow: 4px 4px 0 0 #1A1A1A;
+```
+
+| Shadow | Size | Use For |
+|--------|------|---------|
+| `sm` | 2px | Buttons |
+| `md` | 4px | Cards (default) |
+| `lg` | 6px | Featured items |
+| `xl` | 8px | Hero panels |
+
+### Hover Effect
+
+When you hover a card:
+1. It moves **up 2px**
+2. Shadow grows from `md` to `lg`
+
+Click it:
+1. It moves **down 2px** (into the shadow gap)
+2. Shadow shrinks to `sm`
+
+Feels physical. Like stamping paper. ✋
 
 ### Typography
 
-- **Font**: Inter (Google Fonts)
-- **Display**: 44px / 800 weight
-- **H1**: 32px / 700 weight
-- **H2**: 22px / 700 weight
-- **H3**: 17px / 600 weight
-- **Body**: 16px / 400 weight
-- **Small**: 14px / 500 weight
-- **Tiny**: 11px / 600 weight / uppercase
-
-### Spacing (4px base)
-
-| Token | Value |
-|-------|-------|
-| s-1 | 4px |
-| s-2 | 8px |
-| s-3 | 12px |
-| s-4 | 16px |
-| s-6 | 24px |
-| s-8 | 32px |
-| s-12 | 48px |
-| s-16 | 64px |
-
-### Shadows (Hard Offset)
-
-| Token | Value | Usage |
-|-------|-------|-------|
-| shadow-offset-sm | 2px 2px 0 0 ink | Buttons, chips |
-| shadow-offset-md | 4px 4px 0 0 ink | Cards (default) |
-| shadow-offset-lg | 6px 6px 0 0 ink | Featured cards |
-| shadow-offset-xl | 8px 8px 0 0 ink | Hero panels |
-
-### Border Radius
-
-| Token | Value | Usage |
-|-------|-------|-------|
-| r-sm | 6px | Inputs |
-| r-md | 10px | Buttons |
-| r-lg | 14px | Cards |
-| r-xl | 20px | Panels |
-| r-pill | 999px | Badges |
+- **Font**: Inter (clean, modern)
+- **Headings**: Bold, tight line-height
+- **Body**: Regular, loose line-height
+- **Mono**: JetBrains Mono (for code/stats)
 
 ---
 
-## Templates
+## Keyboard Shortcuts ⌨️
 
-| Template | File | Usage |
-|----------|------|-------|
-| Front Page | `front-page.php` | Homepage with hero + products |
-| Single Product | `single-product.php` | Product detail page |
-| Product Archive | `archive-product.php` | Product listing |
-| Single Post | `single.php` | Blog post |
-| Page | `page.php` | Generic page |
-| Search | `search.php` | Search results |
-| 404 | `404.php` | Not found page |
+| Key | Action |
+|-----|--------|
+| `Esc` | Close mobile menu |
+| `Tab` | Navigate interactive elements |
+| `Enter` | Activate focused element |
 
 ---
 
-## JavaScript Features
+## Tips & Tricks 💡
 
-**theme.js** handles:
+### Best Product Images
+- **Square** (1:1 ratio)
+- **600x600px** minimum
+- **Consistent style** across all products
+- Show the product, not just a logo
 
-- Mobile menu toggle (hamburger)
-- Product category filtering
-- Smooth scroll for anchor links
-- Product card hover/press effects
-- Button hover/press effects
-- Keyboard accessibility (Escape to close menu)
+### Pricing Psychology
+- End prices in `9` or `5` → `$29`, `$49`, `$35`
+- Use sale prices sparingly → creates urgency
+- Show the value, not just the cost
 
----
-
-## Changelog
-
-### Version 1.0.0 (Current)
-
-**Features:**
-- Cream Paper design system implementation
-- Custom Product post type with meta boxes
-- Product Category taxonomy
-- Single product detail page template
-- Product archive page template
-- Product card template part
-- Front page with hero section, featured cards, product grid
-- Responsive mobile navigation
-- Category filtering on product grids
-- Customizer settings (hero, colors, footer)
-- Custom image sizes (600x600 product, 1920x800 hero)
-- Widget areas (sidebar, footer)
-- Breadcrumb navigation on product pages
-- Related products section
-- Trust badges (instant download, secure payment, lifetime access)
-- Product features checklist
-- Sale price display with strikethrough
-
-**Templates:**
-- `front-page.php` — Homepage
-- `single-product.php` — Product detail
-- `archive-product.php` — Product archive
-- `single.php` — Single post
-- `page.php` — Generic page
-- `index.php` — Blog/posts archive
-- `404.php` — Error page
-- `search.php` — Search results
-- `searchform.php` — Search form
-- `comments.php` — Comments
-- `header.php` — Site header
-- `footer.php` — Site footer
-
-**Template Parts:**
-- `content.php` — Post content
-- `content-none.php` — No results
-- `content-page.php` — Page content
-- `content-single.php` — Single post content
-- `content-product-card.php` — Product card
-
-**Assets:**
-- `design-system.css` — CSS custom properties
-- `theme.css` — Component styles
-- `theme.js` — Interactive features
-
-**Customizer:**
-- Hero section settings
-- Brand colors
-- Footer copyright
+### Category Ideas
+- Templates
+- Branding
+- Social Media
+- Fonts
+- Graphics
+- Icons
+- Mockups
 
 ---
 
-## Credits
+## Need Help? 🆘
 
-- **Design System**: Cream Paper
-- **Font**: Inter by Rasmus Andersson
-- **Icons**: Custom SVG
-- **Based on**: ServerlessWP (WordPress serverless framework)
-
----
-
-## License
-
-GNU General Public License v2 or later
-http://www.gnu.org/licenses/gpl-2.0.html
+1. **Check this readme** — you are here
+2. **WordPress Codex** — [developer.wordpress.org](https://developer.wordpress.org)
+3. **Customizer** — Most settings are visual, just try it
 
 ---
 
-*Theme by Blank Page Co*
+## Changelog 📋
+
+### v1.0.0 (Current Release)
+
+**The Good Stuff:**
+- ✅ Cream Paper design system
+- ✅ Custom product post type
+- ✅ Product categories
+- ✅ Price & sale price fields
+- ✅ Download URL field
+- ✅ Features list
+- ✅ Product detail page
+- ✅ Product archive page
+- ✅ Category filtering
+- ✅ Responsive mobile menu
+- ✅ Customizer settings
+- ✅ Related products
+- ✅ Breadcrumb navigation
+- ✅ Trust badges
+- ✅ Hover/press effects
+
+**Templates Included:**
+- Front Page
+- Single Product
+- Product Archive
+- Single Post
+- Page
+- Search
+- 404
+
+---
+
+## License 📜
+
+GPL v2 or later — [gnu.org/licenses/gpl-2.0.html](http://www.gnu.org/licenses/gpl-2.0.html)
+
+---
+
+**Made with ☕ by Blank Page Co**
+
+*Now go sell something cool!*
