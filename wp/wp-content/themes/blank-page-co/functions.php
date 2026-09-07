@@ -47,6 +47,180 @@ function bpco_setup() {
 add_action( 'after_setup_theme', 'bpco_setup' );
 
 /**
+ * Check if running in development/local environment
+ */
+function bpco_is_dev_environment() {
+    $host = isset( $_SERVER['HTTP_HOST'] ) ? $_SERVER['HTTP_HOST'] : '';
+    
+    // Local development indicators
+    $local_hosts = array(
+        'localhost',
+        '127.0.0.1',
+        '::1',
+    );
+    
+    // Check for local/dev environments
+    if ( in_array( $host, $local_hosts, true ) ) {
+        return true;
+    }
+    
+    // Check for .local, .dev, .localhost domains
+    if ( preg_match( '/\.(local|dev|localhost)$/i', $host ) ) {
+        return true;
+    }
+    
+    // Check for common local dev ports (MAMP, XAMPP, etc.)
+    if ( preg_match( '/:\d{4,5}$/', $host ) ) {
+        return true;
+    }
+    
+    // Check WP_DEBUG (usually enabled in development)
+    if ( defined( 'WP_DEBUG' ) && WP_DEBUG === true ) {
+        return true;
+    }
+    
+    // Check for environment variable
+    if ( isset( $_ENV['WP_ENV'] ) && in_array( strtolower( $_ENV['WP_ENV'] ), array( 'local', 'development', 'dev' ), true ) ) {
+        return true;
+    }
+    
+    return false;
+}
+
+/**
+ * Register Sandbox Widget
+ */
+function bpco_register_sandbox_widget() {
+    if ( ! bpco_is_dev_environment() ) {
+        return;
+    }
+    
+    register_sidebar( array(
+        'name'          => esc_html__( 'Sandbox Widget', 'blank-page-co' ),
+        'id'            => 'sandbox-widget',
+        'description'   => esc_html__( 'Development only - hidden in production.', 'blank-page-co' ),
+        'before_widget' => '<div id="%1$s" class="sandbox-widget %2$s">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h4 class="sandbox-widget-title">',
+        'after_title'   => '</h4>',
+    ) );
+}
+add_action( 'widgets_init', 'bpco_register_sandbox_widget' );
+
+/**
+ * Enqueue sandbox widget styles (development only)
+ */
+function bpco_sandbox_widget_styles() {
+    if ( ! bpco_is_dev_environment() ) {
+        return;
+    }
+    
+    wp_add_inline_style( 'bpco-theme', '
+        .sandbox-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 99999;
+            background: #FAF7F0;
+            border: 2px solid #1A1A1A;
+            border-radius: 14px;
+            padding: 16px 20px;
+            box-shadow: 4px 4px 0 0 #1A1A1A;
+            font-family: "Inter", sans-serif;
+            max-width: 300px;
+            font-size: 14px;
+        }
+        .sandbox-widget-title {
+            margin: 0 0 8px 0;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #6B6357;
+            font-weight: 600;
+        }
+        .sandbox-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            background: #F5DDA4;
+            border: 1px solid #1A1A1A;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #1A1A1A;
+            margin-bottom: 8px;
+        }
+        .sandbox-env-info {
+            color: #6B6357;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+        .sandbox-env-info code {
+            background: #F2EEE4;
+            padding: 1px 4px;
+            border-radius: 4px;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 11px;
+        }
+    ' );
+}
+add_action( 'wp_enqueue_scripts', 'bpco_sandbox_widget_styles' );
+
+/**
+ * Output sandbox widget content (development only)
+ */
+function bpco_sandbox_widget_content() {
+    if ( ! bpco_is_dev_environment() || ! is_active_sidebar( 'sandbox-widget' ) ) {
+        return;
+    }
+    
+    echo '<div class="sandbox-widget">';
+    echo '<span class="sandbox-badge">DEV</span>';
+    echo '<h4 class="sandbox-widget-title">Sandbox</h4>';
+    echo '<div class="sandbox-env-info">';
+    
+    dynamic_sidebar( 'sandbox-widget' );
+    
+    $host = isset( $_SERVER['HTTP_HOST'] ) ? htmlspecialchars( $_SERVER['HTTP_HOST'] ) : 'unknown';
+    echo '<p>Host: <code>' . $host . '</code></p>';
+    echo '<p>WP_DEBUG: <code>' . ( defined( 'WP_DEBUG' ) && WP_DEBUG ? 'true' : 'false' ) . '</code></p>';
+    
+    echo '</div>';
+    echo '</div>';
+}
+add_action( 'wp_footer', 'bpco_sandbox_widget_content' );
+
+/**
+ * Hide sandbox widget in production admin
+ */
+function bpco_hide_sandbox_in_production() {
+    if ( bpco_is_dev_environment() ) {
+        return;
+    }
+    
+    // Remove sandbox widget from available widgets in production
+    add_filter( 'widget_display_callback', function( $return, $widget, $args ) {
+        if ( isset( $widget->id_base ) && 'sandbox' === $widget->id_base ) {
+            return false;
+        }
+        return $return;
+    }, 10, 3 );
+}
+add_action( 'admin_init', 'bpco_hide_sandbox_in_production' );
+
+/**
+ * Add body class for sandbox widget visibility
+ */
+function bpco_sandbox_body_class( $classes ) {
+    if ( bpco_is_dev_environment() ) {
+        $classes[] = 'sandbox-active';
+    } else {
+        $classes[] = 'sandbox-hidden';
+    }
+    return $classes;
+}
+add_filter( 'body_class', 'bpco_sandbox_body_class' );
+
+/**
  * Enqueue Scripts and Styles
  */
 function bpco_scripts() {

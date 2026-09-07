@@ -15,6 +15,7 @@ A clean, minimal WordPress theme for selling digital products. Think cozy paper 
 | 📱 **Mobile Ready** | Looks great on phones, tablets, and massive monitors |
 | ⚡ **No Bloat** | Just the essentials — no page builder required |
 | 🎛️ **Easy Customizer** | Change colors, hero text, and footer without touching code |
+| 🧪 **Sandbox Widget** | Dev-only widget that hides automatically in production |
 
 ---
 
@@ -248,6 +249,41 @@ Click it:
 
 Feels physical. Like stamping paper. ✋
 
+---
+
+## Sandbox Widget 🧪
+
+**Development only — hidden in production!**
+
+A floating widget appears in the bottom-right corner when you're running WordPress locally or in a dev environment. It disappears automatically on production.
+
+### What It Shows
+
+| Info | Description |
+|------|-------------|
+| **DEV Badge** | Yellow pill badge indicating development mode |
+| **Host** | Current hostname |
+| **WP_DEBUG** | Debug mode status |
+
+### Environment Detection
+
+The widget shows when any of these are true:
+
+- Hostname is `localhost`, `127.0.0.1`, or `::1`
+- Domain ends with `.local`, `.dev`, or `.localhost`
+- URL includes a port number (e.g., `:8888`, `:3000`)
+- `WP_DEBUG` is enabled in `wp-config.php`
+- `WP_ENV` environment variable is `local`, `development`, or `dev`
+
+### Using the Widget Area
+
+1. Go to **Appearance → Widgets**
+2. Find **Sandbox Widget** (only visible in dev)
+3. Add any widgets you want for development
+4. They'll only show in local/dev environments
+
+---
+
 ### Typography
 
 - **Font**: Inter (clean, modern)
@@ -301,7 +337,15 @@ Feels physical. Like stamping paper. ✋
 
 ## Changelog 📋
 
-### v1.0.0 (Current Release)
+### v1.1.0 (Current Release)
+
+**New Features:**
+- ✅ Sandbox Widget — dev-only widget, hidden in production
+- ✅ Automatic environment detection
+- ✅ DEV badge indicator
+- ✅ Admin area sandbox filtering
+
+### v1.0.0
 
 **The Good Stuff:**
 - ✅ Cream Paper design system

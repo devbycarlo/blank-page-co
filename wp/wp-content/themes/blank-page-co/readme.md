@@ -277,6 +277,46 @@ blank-page-co/
 
 ---
 
+## Sandbox Widget 🧪
+
+**Development only — hidden in production!**
+
+The sandbox widget automatically appears in the bottom-right corner when you're running WordPress locally or in a development environment.
+
+### What It Shows
+
+| Info | Description |
+|------|-------------|
+| **DEV Badge** | Yellow pill badge indicating development mode |
+| **Host** | Current hostname |
+| **WP_DEBUG** | Debug mode status |
+
+### Environment Detection
+
+The widget shows when any of these are true:
+
+- Hostname is `localhost`, `127.0.0.1`, or `::1`
+- Domain ends with `.local`, `.dev`, or `.localhost`
+- URL includes a port number (e.g., `:8888`, `:3000`)
+- `WP_DEBUG` is enabled in `wp-config.php`
+- `WP_ENV` environment variable is `local`, `development`, or `dev`
+
+### Hiding in Production
+
+The widget automatically hides when:
+- Running on a production domain
+- `WP_DEBUG` is `false`
+- No local development indicators detected
+
+### Using the Widget Area
+
+1. Go to **Appearance → Widgets**
+2. Find **Sandbox Widget** (only visible in dev)
+3. Add any widgets you want for development
+4. They'll only show in local/dev environments
+
+---
+
 ## Tips & Tricks 💡
 
 ### Product Images
@@ -313,7 +353,15 @@ blank-page-co/
 
 ## Changelog 📋
 
-### v1.0.0 (Current)
+### v1.1.0 (Current)
+
+**New Features:**
+- ✅ Sandbox Widget — development-only widget, hidden in production
+- ✅ Environment detection (local/dev vs production)
+- ✅ DEV badge indicator on sandbox widget
+- ✅ Admin area sandbox filtering
+
+### v1.0.0
 
 **Features:**
 - ✅ Cream Paper design system
