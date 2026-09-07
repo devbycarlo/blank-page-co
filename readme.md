@@ -1,159 +1,321 @@
-# ServerlessWP
+# Blank Page Co
 
-WordPress hosting is silly.
+A clean, minimal WordPress theme for digital stores and creative portfolios. Built with the Cream Paper design system — warm paper tones, ink-strong outlines, and signature hard offset shadows.
 
-Why should a small WordPress site need a server running around the clock?
+---
 
-ServerlessWP [[github.com/mitchmac/serverlesswp](https://github.com/mitchmac/serverlesswp)] enables **low maintenance** and **low cost/free** WordPress hosting on Vercel, Netlify, or AWS Lambda.
+## Features
 
-WordPress runs on demand in serverless functions, with a SQLite database stored in S3 or Vercel Blob. No always-on server or separate database hosting to manage.
+- **Custom Product Post Type** — Add products with pricing, download URLs, features
+- **Product Categories** — Organize products with taxonomy
+- **Cream Paper Design System** — Warm, minimal aesthetic with hard offset shadows
+- **Responsive Design** — Mobile-first with hamburger menu
+- **Customizer Settings** — Hero section, brand colors, footer
+- **Product Detail Pages** — Gallery, pricing, features list, related products
+- **Category Filtering** — Filter products on homepage and archive
+- **Inter Font** — Clean, modern typography from Google Fonts
 
-**Just want to try?** Deploy on Vercel with a private [Vercel Blob](https://vercel.com/docs/vercel-blob) store for your SQLite database and media uploads. No separate database hosting or credentials to copy.
+---
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fmitchmac%2Fserverlesswp&project-name=serverlesswp&repository-name=serverlesswp&stores=%5B%7B%22type%22%3A%22blob%22%2C%22access%22%3A%22private%22%2C%22envVarPrefix%22%3A%22SQLITE%22%7D%5D&env=SERVERLESSWP_STREAM_PROVIDER,SERVERLESSWP_STREAM_VERCEL_ACCESS&envDefaults=%7B%22SERVERLESSWP_STREAM_PROVIDER%22%3A%22vercel-blob%22%2C%22SERVERLESSWP_STREAM_VERCEL_ACCESS%22%3A%22private%22%7D&envDescription=Stores%20media%20uploads%20in%20the%20same%20private%20Blob%20store.%20Leave%20these%20as%20they%20are.&envLink=https%3A%2F%2Fgithub.com%2Fmitchmac%2Fserverlesswp%23media-uploads-on-vercel-blob)
+## Installation
 
-Leave the two pre-filled deploy settings as they are to enable [media uploads](#media-uploads-on-vercel-blob). Once deployed, open your site’s URL and complete the WordPress setup.
+### Manual Install
 
-## Use cases
+1. Download the `blank-page-co` theme folder
+2. Upload to `wp/wp-content/themes/blank-page-co/`
+3. Activate via **Appearance → Themes** in WordPress admin
 
-Use the familiar WordPress admin to write posts, edit pages, and upload media.
+### Directory Structure
 
-**This is an experimental project**, best suited to blogs, portfolios, documentation, marketing and small business sites, and dev or staging sites.
+```
+wp/
+└── wp-content/
+    └── themes/
+        └── blank-page-co/
+            ├── style.css
+            ├── functions.php
+            ├── header.php
+            ├── footer.php
+            ├── front-page.php
+            ├── single-product.php
+            ├── archive-product.php
+            ├── index.php
+            ├── page.php
+            ├── single.php
+            ├── 404.php
+            ├── search.php
+            ├── searchform.php
+            ├── comments.php
+            ├── readme.md
+            ├── assets/
+            │   ├── css/
+            │   │   ├── design-system.css
+            │   │   └── theme.css
+            │   └── js/
+            │       └── theme.js
+            ├── template-parts/
+            │   ├── content.php
+            │   ├── content-none.php
+            │   ├── content-page.php
+            │   ├── content-single.php
+            │   └── content-product-card.php
+            └── inc/
+                └── customizer.php
+```
 
-SQLite keeps setup simple for sites with light database activity, but some plugins are incompatible and competing database writes can fail. For multiple active editors, frequent form submissions, ecommerce, membership sites, or forums, use [MySQL/MariaDB](#mysql-database-option).
+---
 
-## Why serverless WordPress?
+## Quick Start
 
-- **Less to maintain:** no server to manage; [WordPress updates](#keeping-wordpress-updated) arrive as pull requests you can review and merge.
-- **On-demand compute:** run WordPress when requests need it, without keeping your own server running around the clock.
-- **No database server required:** store SQLite in S3 or Vercel Blob.
-- **Branch previews:** try changes with a fresh SQLite database per branch, configured automatically on Vercel.
+### 1. Activate the Theme
 
-The deploy button uses Vercel for the simplest setup, with Blob storage, [CDN delivery and automatic HTTPS](https://vercel.com/docs/cdn), and [DDoS protection and firewall tools](https://vercel.com/docs/vercel-firewall) in one place. Optional [Web Analytics](https://vercel.com/docs/analytics/quickstart) adds visitor insights once enabled with a tracking script in WordPress. Features and usage limits vary by plan; the [free Hobby plan](https://vercel.com/pricing) is for personal, non-commercial projects. You can also deploy on Netlify or AWS Lambda.
+1. Go to **Appearance → Themes**
+2. Click **Activate** on "Blank Page Co"
 
-## Other deployment options
+### 2. Set Up Homepage
 
-- **[Vercel with an S3 demo database](https://serverlesswp.com/vercel-deploy):** try SQLite + S3 with a temporary database that expires after a few days.
-- **[Netlify](https://app.netlify.com/start/deploy?repository=https://github.com/mitchmac/serverlesswp):** bring your own [SQLite + S3](#sqlite--s3) or [MySQL](#mysql-database-option) database.
-- **AWS Lambda:** deploy with the Serverless Framework using `npm install && serverless deploy`.
+1. Create a page named "Home"
+2. Go to **Settings → Reading**
+3. Set "Your homepage displays" to **A static page**
+4. Select "Home" as the Homepage
+5. Save changes
 
-## Customization
+### 3. Create Menu
 
-- **Plugins and themes:** WordPress lives in `wp/`. Add plugins to `wp/wp-content/plugins/` or themes to `wp/wp-content/themes/`, then commit and push to redeploy. See [Keeping WordPress updated](#keeping-wordpress-updated) for updates through pull requests.
-- **Uploads and generated files:** media uploads and supported plugin-generated files persist in S3 or Vercel Blob. See [the stream wrapper reference](#media-uploads-on-vercel-blob) for file-storage limitations.
-- **Caching:** use cache headers such as `s-maxage` to enable CDN caching. See [Vercel Edge Caching](https://vercel.com/docs/concepts/edge-network/caching) or [Netlify Cache Headers](https://docs.netlify.com/edge-functions/optional-configuration/#supported-headers).
-- **Request handling:** [api/index.js](api/index.js) imports the WordPress handler from [serverlesswp-node](https://github.com/mitchmac/serverlesswp-node). The package owns runtime behavior and request hooks. Routing is configured in [vercel.json](vercel.json) or [netlify.toml](netlify.toml).
+1. Go to **Appearance → Menus**
+2. Create a new menu
+3. Add pages: Home, Shop, About
+4. Check **Primary Menu** under Display Location
+5. Save
 
-## Getting help
+### 4. Add Products
 
-[Start a discussion](https://github.com/mitchmac/ServerlessWP/discussions) for setup help or to share your successes and ideas.
+1. Go to **Products → Add New Product**
+2. Fill in title, description, featured image
+3. Set price in **Product Details** meta box
+4. Assign a category
+5. Publish
 
-## Contributing
+---
 
-Try ServerlessWP, [report problems](https://github.com/mitchmac/ServerlessWP/issues), and spread the word!
+## Custom Post Type: Products
+
+The theme registers a `product` post type with:
+
+| Feature | Details |
+|---------|---------|
+| Slug | `/product/` |
+| Archive | `/product/` |
+| Admin Menu | Products (with cart icon) |
+| REST API | Enabled |
+| Supports | Title, Editor, Thumbnail, Excerpt, Custom Fields |
+
+### Product Meta Fields
+
+| Field | Meta Key | Description |
+|-------|----------|-------------|
+| Price | `_bpco_product_price` | Regular price ($) |
+| Sale Price | `_bpco_product_sale_price` | Discounted price ($) |
+| Download URL | `_bpco_product_download_url` | Link to download file |
+| File Format | `_bpco_product_file_format` | e.g., PSD, AI, PDF, ZIP |
+| Features | `_bpco_product_features` | One feature per line |
+
+### Product Categories
+
+Custom taxonomy `product_category` with:
+- Hierarchical (like categories)
+- REST API enabled
+- Admin column display
+
+---
+
+## Customizer Settings
+
+Go to **Appearance → Customize**:
+
+### Hero Section
+
+| Setting | Default |
+|---------|---------|
+| Hero Headline | Your Story Starts Here |
+| Hero Subheadline | Premium digital templates and resources for creators |
+| Hero Button Text | Browse Collection |
+| Hero Button URL | #products |
+
+### Brand Colors
+
+| Setting | Default |
+|---------|---------|
+| Primary Color | #1A1A1A |
+| Accent Color | #F5DDA4 |
+| Background Color | #FAF7F0 |
+
+### Footer
+
+| Setting | Default |
+|---------|---------|
+| Footer Copyright | All rights reserved. |
+
+---
+
+## Design System
+
+### Colors
+
+| Name | Hex | Usage |
+|------|-----|-------|
+| Paper | `#FAF7F0` | Page background |
+| Card | `#FFFFFF` | Card backgrounds |
+| Soft | `#F2EEE4` | Subtle backgrounds |
+| Accent | `#F5DDA4` | Yellow highlights |
+| Accent 2 | `#FFE9B5` | Softer yellow |
+| Ink Strong | `#1A1A1A` | Primary text, borders |
+| Ink Default | `#2A2622` | Body text |
+| Ink Muted | `#6B6357` | Secondary text |
+| Ink Faint | `#A39A8C` | Placeholder text |
+
+### Typography
+
+- **Font**: Inter (Google Fonts)
+- **Display**: 44px / 800 weight
+- **H1**: 32px / 700 weight
+- **H2**: 22px / 700 weight
+- **H3**: 17px / 600 weight
+- **Body**: 16px / 400 weight
+- **Small**: 14px / 500 weight
+- **Tiny**: 11px / 600 weight / uppercase
+
+### Spacing (4px base)
+
+| Token | Value |
+|-------|-------|
+| s-1 | 4px |
+| s-2 | 8px |
+| s-3 | 12px |
+| s-4 | 16px |
+| s-6 | 24px |
+| s-8 | 32px |
+| s-12 | 48px |
+| s-16 | 64px |
+
+### Shadows (Hard Offset)
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| shadow-offset-sm | 2px 2px 0 0 ink | Buttons, chips |
+| shadow-offset-md | 4px 4px 0 0 ink | Cards (default) |
+| shadow-offset-lg | 6px 6px 0 0 ink | Featured cards |
+| shadow-offset-xl | 8px 8px 0 0 ink | Hero panels |
+
+### Border Radius
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| r-sm | 6px | Inputs |
+| r-md | 10px | Buttons |
+| r-lg | 14px | Cards |
+| r-xl | 20px | Panels |
+| r-pill | 999px | Badges |
+
+---
+
+## Templates
+
+| Template | File | Usage |
+|----------|------|-------|
+| Front Page | `front-page.php` | Homepage with hero + products |
+| Single Product | `single-product.php` | Product detail page |
+| Product Archive | `archive-product.php` | Product listing |
+| Single Post | `single.php` | Blog post |
+| Page | `page.php` | Generic page |
+| Search | `search.php` | Search results |
+| 404 | `404.php` | Not found page |
+
+---
+
+## JavaScript Features
+
+**theme.js** handles:
+
+- Mobile menu toggle (hamburger)
+- Product category filtering
+- Smooth scroll for anchor links
+- Product card hover/press effects
+- Button hover/press effects
+- Keyboard accessibility (Escape to close menu)
+
+---
+
+## Changelog
+
+### Version 1.0.0 (Current)
+
+**Features:**
+- Cream Paper design system implementation
+- Custom Product post type with meta boxes
+- Product Category taxonomy
+- Single product detail page template
+- Product archive page template
+- Product card template part
+- Front page with hero section, featured cards, product grid
+- Responsive mobile navigation
+- Category filtering on product grids
+- Customizer settings (hero, colors, footer)
+- Custom image sizes (600x600 product, 1920x800 hero)
+- Widget areas (sidebar, footer)
+- Breadcrumb navigation on product pages
+- Related products section
+- Trust badges (instant download, secure payment, lifetime access)
+- Product features checklist
+- Sale price display with strikethrough
+
+**Templates:**
+- `front-page.php` — Homepage
+- `single-product.php` — Product detail
+- `archive-product.php` — Product archive
+- `single.php` — Single post
+- `page.php` — Generic page
+- `index.php` — Blog/posts archive
+- `404.php` — Error page
+- `search.php` — Search results
+- `searchform.php` — Search form
+- `comments.php` — Comments
+- `header.php` — Site header
+- `footer.php` — Site footer
+
+**Template Parts:**
+- `content.php` — Post content
+- `content-none.php` — No results
+- `content-page.php` — Page content
+- `content-single.php` — Single post content
+- `content-product-card.php` — Product card
+
+**Assets:**
+- `design-system.css` — CSS custom properties
+- `theme.css` — Component styles
+- `theme.js` — Interactive features
+
+**Customizer:**
+- Hero section settings
+- Brand colors
+- Footer copyright
+
+---
+
+## Credits
+
+- **Design System**: Cream Paper
+- **Font**: Inter by Rasmus Andersson
+- **Icons**: Custom SVG
+- **Based on**: ServerlessWP (WordPress serverless framework)
+
+---
 
 ## License
 
-GNU General Public License v3.0
+GNU General Public License v2 or later
+http://www.gnu.org/licenses/gpl-2.0.html
 
-## Reference
+---
 
-### Database options
-
-ServerlessWP supports MySQL or a [SQLite database](https://github.com/WordPress/sqlite-database-integration) stored in Vercel Blob or an S3-compatible bucket. SQLite runs on demand, but some plugins are incompatible and competing database writes can fail. Use MySQL for sites with multiple active editors or frequent submissions. See [how SQLite + S3 works](https://github.com/mitchmac/ServerlessWP/wiki/How-does-SQLite-with-S3-work-with-ServerlessWP%3F).
-
-Database selection follows this order:
-
-1. **MySQL:** all four connection variables below are set.
-2. **SQLite + S3:** `SQLITE_S3_BUCKET` is set.
-3. **SQLite + Vercel Blob:** `BLOB_STORE_ID`, `SQLITE_BLOB_STORE_ID`, or `SQLITE_BLOB_READ_WRITE_TOKEN` is set on Vercel.
-4. Otherwise, the setup page appears.
-
-### SQLite + Vercel Blob
-
-Connect a **private** Blob store in your Vercel project's Storage tab. Vercel supplies the store ID and OIDC authentication; each new git branch starts with its own fresh SQLite database. The deploy button handles this setup and shares the store with media uploads.
-
-| Environment variable | Purpose / default |
-|---|---|
-| `BLOB_STORE_ID` | Connected store ID; supplied by Vercel. |
-| `SQLITE_BLOB_STORE_ID` | Optional database-specific store ID; overrides `BLOB_STORE_ID`. |
-| `SQLITE_BLOB_READ_WRITE_TOKEN` | Optional static token instead of OIDC. The database does **not** use `BLOB_READ_WRITE_TOKEN`. |
-| `SQLITE_BLOB_PATHNAME` | Database base name; default: `wp-sqlite`. |
-
-For separate database and upload stores, connect the private database store with the `SQLITE` environment variable prefix and the upload store without a prefix.
-
-### SQLite + S3
-
-Create a **private** S3-compatible bucket (including Cloudflare R2), preferably near your functions. Works on Netlify, AWS, and Vercel.
-
-| Environment variable | Purpose |
-|---|---|
-| `SQLITE_S3_BUCKET` | Bucket name. |
-| `SQLITE_S3_API_KEY` | API access key. |
-| `SQLITE_S3_API_SECRET` | API secret key. |
-| `SQLITE_S3_REGION` | Bucket region. |
-| `SQLITE_S3_ENDPOINT` | Optional custom endpoint, e.g. for Cloudflare R2. |
-
-### MySQL database option
-
-Create a MySQL-compatible database and set the following; `wp-config.php` connects automatically. [TiDB](https://www.pingcap.com/tidb-cloud-serverless/) is one hosted option.
-
-| Environment variable | Purpose |
-|---|---|
-| `DATABASE` | Database name. |
-| `USERNAME` | Database user. |
-| `PASSWORD` | Database password. |
-| `HOST` | Database host. |
-| `TABLE_PREFIX` | Optional table prefix. |
-
-### Media uploads on Vercel Blob
-
-The stream wrapper persists uploads in object storage because local writes do not survive redeploys. The deploy button enables it; for an existing project, configure:
-
-| Environment variable | Purpose / default |
-|---|---|
-| `SERVERLESSWP_STREAM_PROVIDER` | `vercel-blob` for Vercel Blob, or `s3` for a bucket. |
-| `SERVERLESSWP_STREAM_VERCEL_ACCESS` | `private` or `public`; must match the store's access setting. |
-| `SERVERLESSWP_STREAM_VERCEL_STORE_ID` | Optional store ID; falls back to `BLOB_STORE_ID`, then `SQLITE_BLOB_STORE_ID`. |
-| `SERVERLESSWP_STREAM_CACHE_CONTROL` | Served-file cache header; default: `public, max-age=3600, s-maxage=86400`. |
-| `SERVERLESSWP_STREAM_CDN_BASE_URL` | Optional public Blob CDN URL to serve files directly. |
-
-Vercel OIDC authenticates writes without manually added credentials. Private uploads are served through the function and cached at the edge. Plugins, themes, mu-plugins, and languages stay local; `.php`, `.log`, `.sqlite`, and `.htaccess` files are never routed. See the [stream wrapper README](https://github.com/mitchmac/serverlesswp-node/tree/main/packages/serverlesswp-stream-wrapper) for all settings, S3 configuration, and limitations.
-
-### Keeping WordPress updated
-
-The **Update WordPress** GitHub Action checks daily and opens pull requests; merging them redeploys your site. Enable it in your repository:
-
-1. **Settings → Actions → General → Workflow permissions → Allow GitHub Actions to create and approve pull requests.** Without this, the action still pushes a branch for you to open a PR manually.
-2. **Actions → Update WordPress → Enable workflow**, if disabled. GitHub disables scheduled workflows after 60 days without a push. **Run workflow** starts a check manually.
-
-| Component | Update behavior |
-|---|---|
-| WordPress core | Replaces files verified against wordpress.org checksums; skips edited or deleted files and preserves your plugins, themes, uploads, and `wp-config.php`. The PR lists skipped and modified core files. |
-| Bundled plugins | Separate PR; updates only plugins whose entire installed release matches wordpress.org checksums. Modified, premium, custom, and other unverified plugins are skipped and listed. |
-| SQLite Database Integration | Mirrors its GitHub default branch; review the PR diff. Updates remove files you add inside this plugin's directory, so keep custom code in a separate plugin. |
-| Themes | Reports available updates for manual installation; no automatic updates because wordpress.org provides no theme checksums. Themes bundled with WordPress are excluded from the report and covered by core updates. |
-
-Check without changing files:
-
-```bash
-npm run wp:update -- --dry-run
-npm run wp:update -- --plugins --dry-run
-npm run wp:update -- --themes
-```
-
-### Keeping the framework updated
-
-Framework code and PHP implementations ship in the `serverlesswp` npm dependency.
-Your `wp/` files remain site-owned: add plugins, MU plugins and themes normally.
-The committed ServerlessWP MU-plugin loaders explicitly import the installed
-package. `wp-config.php` remains complete and editable in your site, with no
-package import. Installation and builds do not generate or replace files under
-`wp/`; `wp-config.php` stays entirely site-owned.
-
-This repository is the source of truth for the handlers, MU-plugin loaders,
-deployment configuration and workflows. Bring changes to those files into your
-site through Git. The npm package contains the framework implementation, without
-scaffold templates or configuration migration tooling.
-
-Update the package and lockfile, test and deploy.
+*Theme by Blank Page Co*
