@@ -77,61 +77,86 @@ get_header();
             <!-- Category Filter -->
             <div class="category-filter">
                 <button class="filter-btn active" data-category="all"><?php esc_html_e( 'All', 'blank-page-co' ); ?></button>
-                <button class="filter-btn" data-category="templates"><?php esc_html_e( 'Templates', 'blank-page-co' ); ?></button>
-                <button class="filter-btn" data-category="branding"><?php esc_html_e( 'Branding', 'blank-page-co' ); ?></button>
-                <button class="filter-btn" data-category="social"><?php esc_html_e( 'Social Media', 'blank-page-co' ); ?></button>
+                <?php
+                $product_categories = get_terms( array(
+                    'taxonomy'   => 'product_category',
+                    'hide_empty' => false,
+                ) );
+
+                if ( ! is_wp_error( $product_categories ) && ! empty( $product_categories ) ) :
+                    foreach ( $product_categories as $category ) :
+                ?>
+                    <button class="filter-btn" data-category="<?php echo esc_attr( $category->slug ); ?>"><?php echo esc_html( $category->name ); ?></button>
+                <?php
+                    endforeach;
+                endif;
+                ?>
             </div>
 
             <!-- Product Grid -->
             <div class="product-grid">
                 <?php
-                // Product placeholder data
-                $products = array(
-                    array(
-                        'title'    => __( 'Minimal Templates Pack', 'blank-page-co' ),
-                        'price'    => '$29',
-                        'category' => __( 'Templates', 'blank-page-co' ),
-                        'cat_slug' => 'templates',
-                        'color'    => '#F5DDA4',
-                    ),
-                    array(
-                        'title'    => __( 'Brand Identity Kit', 'blank-page-co' ),
-                        'price'    => '$49',
-                        'category' => __( 'Branding', 'blank-page-co' ),
-                        'cat_slug' => 'branding',
-                        'color'    => '#F2EEE4',
-                    ),
-                    array(
-                        'title'    => __( 'Social Media Bundle', 'blank-page-co' ),
-                        'price'    => '$35',
-                        'category' => __( 'Social Media', 'blank-page-co' ),
-                        'cat_slug' => 'social',
-                        'color'    => '#FFE9B5',
-                    ),
-                    array(
-                        'title'    => __( 'Portfolio Starter Kit', 'blank-page-co' ),
-                        'price'    => '$39',
-                        'category' => __( 'Templates', 'blank-page-co' ),
-                        'cat_slug' => 'templates',
-                        'color'    => '#E5DFD2',
-                    ),
-                    array(
-                        'title'    => __( 'Newsletter Template Set', 'blank-page-co' ),
-                        'price'    => '$25',
-                        'category' => __( 'Templates', 'blank-page-co' ),
-                        'cat_slug' => 'templates',
-                        'color'    => '#F5DDA4',
-                    ),
-                    array(
-                        'title'    => __( 'Invoice & Proposal Pack', 'blank-page-co' ),
-                        'price'    => '$45',
-                        'category' => __( 'Templates', 'blank-page-co' ),
-                        'cat_slug' => 'templates',
-                        'color'    => '#F2EEE4',
-                    ),
-                );
+                $products_query = new WP_Query( array(
+                    'post_type'      => 'product',
+                    'posts_per_page' => -1,
+                    'orderby'        => 'date',
+                    'order'          => 'DESC',
+                ) );
 
-                foreach ( $products as $product ) :
+                if ( $products_query->have_posts() ) :
+                    while ( $products_query->have_posts() ) :
+                        $products_query->the_post();
+
+                        $price = get_post_meta( get_the_ID(), '_bpco_product_price', true );
+                        $sale_price = get_post_meta( get_the_ID(), '_bpco_product_sale_price', true );
+                        $product_cats = get_the_terms( get_the_ID(), 'product_category' );
+                        $cat_slug = ! is_wp_error( $product_cats ) && ! empty( $product_cats ) ? $product_cats[0]->slug : 'general';
+                        $cat_name = ! is_wp_error( $product_cats ) && ! empty( $product_cats ) ? $product_cats[0]->name : __( 'General', 'blank-page-co' );
+                ?>
+                <article class="product-card" data-category="<?php echo esc_attr( $cat_slug ); ?>">
+                    <a href="<?php the_permalink(); ?>" class="product-card-link">
+                        <div class="product-card-image">
+                            <?php if ( has_post_thumbnail() ) : ?>
+                                <?php the_post_thumbnail( 'bpco-product' ); ?>
+                            <?php else : ?>
+                                <div style="display: grid; place-items: center; height: 100%; background: var(--surface-soft);">
+                                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.3;">
+                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                        <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                        <polyline points="21 15 16 10 5 21"></polyline>
+                                    </svg>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                        <div class="product-card-content">
+                            <span class="product-card-category"><?php echo esc_html( $cat_name ); ?></span>
+                            <h3 class="product-card-title"><?php the_title(); ?></h3>
+                            <div class="product-card-price">
+                                <?php if ( $sale_price && $sale_price < $price ) : ?>
+                                    <span class="price-sale">$<?php echo esc_html( number_format( (float) $sale_price, 2 ) ); ?></span>
+                                    <span class="price-original">$<?php echo esc_html( number_format( (float) $price, 2 ) ); ?></span>
+                                <?php elseif ( $price ) : ?>
+                                    <span>$<?php echo esc_html( number_format( (float) $price, 2 ) ); ?></span>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </a>
+                </article>
+                <?php
+                    endwhile;
+                    wp_reset_postdata();
+                else :
+                    // Fallback placeholder products if no products exist
+                    $placeholder_products = array(
+                        array( 'title' => __( 'Minimal Templates Pack', 'blank-page-co' ), 'price' => '$29', 'category' => __( 'Templates', 'blank-page-co' ), 'cat_slug' => 'templates', 'color' => '#F5DDA4' ),
+                        array( 'title' => __( 'Brand Identity Kit', 'blank-page-co' ), 'price' => '$49', 'category' => __( 'Branding', 'blank-page-co' ), 'cat_slug' => 'branding', 'color' => '#F2EEE4' ),
+                        array( 'title' => __( 'Social Media Bundle', 'blank-page-co' ), 'price' => '$35', 'category' => __( 'Social Media', 'blank-page-co' ), 'cat_slug' => 'social', 'color' => '#FFE9B5' ),
+                        array( 'title' => __( 'Portfolio Starter Kit', 'blank-page-co' ), 'price' => '$39', 'category' => __( 'Templates', 'blank-page-co' ), 'cat_slug' => 'templates', 'color' => '#E5DFD2' ),
+                        array( 'title' => __( 'Newsletter Template Set', 'blank-page-co' ), 'price' => '$25', 'category' => __( 'Templates', 'blank-page-co' ), 'cat_slug' => 'templates', 'color' => '#F5DDA4' ),
+                        array( 'title' => __( 'Invoice & Proposal Pack', 'blank-page-co' ), 'price' => '$45', 'category' => __( 'Templates', 'blank-page-co' ), 'cat_slug' => 'templates', 'color' => '#F2EEE4' ),
+                    );
+
+                    foreach ( $placeholder_products as $product ) :
                 ?>
                 <article class="product-card" data-category="<?php echo esc_attr( $product['cat_slug'] ); ?>">
                     <div class="product-card-image" style="background: <?php echo esc_attr( $product['color'] ); ?>;">
@@ -152,7 +177,10 @@ get_header();
                         <a href="#" class="btn primary" style="width: 100%;"><?php esc_html_e( 'View Product', 'blank-page-co' ); ?></a>
                     </div>
                 </article>
-                <?php endforeach; ?>
+                <?php
+                    endforeach;
+                endif;
+                ?>
             </div>
         </div>
     </section>
