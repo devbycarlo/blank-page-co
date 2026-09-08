@@ -16,22 +16,22 @@ get_header();
 
         <?php if ( have_posts() ) : ?>
 
-            <div class="product-grid">
+            <div class="post-grid">
                 <?php while ( have_posts() ) : the_post(); ?>
-                    <article id="post-<?php the_ID(); ?>" <?php post_class( 'product-card' ); ?>>
+                    <article id="post-<?php the_ID(); ?>" <?php post_class( 'post-card' ); ?>>
                         <?php if ( has_post_thumbnail() ) : ?>
-                            <div class="product-card-image">
+                            <div class="post-card-image">
                                 <a href="<?php the_permalink(); ?>">
                                     <?php the_post_thumbnail( 'bpco-product' ); ?>
                                 </a>
                             </div>
                         <?php endif; ?>
-                        <div class="product-card-content">
-                            <span class="product-card-category"><?php echo esc_html( get_the_date() ); ?></span>
-                            <h3 class="product-card-title">
+                        <div class="post-card-content">
+                            <span class="post-card-date"><?php echo esc_html( get_the_date() ); ?></span>
+                            <h3 class="post-card-title">
                                 <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
                             </h3>
-                            <p style="color: var(--ink-muted); font-size: var(--fs-small); margin-bottom: var(--s-4);">
+                            <p class="post-card-excerpt">
                                 <?php echo esc_html( wp_trim_words( get_the_excerpt(), 15 ) ); ?>
                             </p>
                             <a href="<?php the_permalink(); ?>" class="btn"><?php esc_html_e( 'Read More', 'blank-page-co' ); ?></a>

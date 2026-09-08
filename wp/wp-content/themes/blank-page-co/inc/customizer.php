@@ -126,6 +126,40 @@ function bpco_customize_register( $wp_customize ) {
         'section' => 'bpco_footer_section',
         'type'    => 'text',
     ) );
+
+    // Social Media URLs
+    $wp_customize->add_setting( 'bpco_social_twitter', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ) );
+
+    $wp_customize->add_control( 'bpco_social_twitter', array(
+        'label'   => esc_html__( 'Twitter / X URL', 'blank-page-co' ),
+        'section' => 'bpco_footer_section',
+        'type'    => 'url',
+    ) );
+
+    $wp_customize->add_setting( 'bpco_social_instagram', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ) );
+
+    $wp_customize->add_control( 'bpco_social_instagram', array(
+        'label'   => esc_html__( 'Instagram URL', 'blank-page-co' ),
+        'section' => 'bpco_footer_section',
+        'type'    => 'url',
+    ) );
+
+    $wp_customize->add_setting( 'bpco_social_pinterest', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ) );
+
+    $wp_customize->add_control( 'bpco_social_pinterest', array(
+        'label'   => esc_html__( 'Pinterest URL', 'blank-page-co' ),
+        'section' => 'bpco_footer_section',
+        'type'    => 'url',
+    ) );
 }
 add_action( 'customize_register', 'bpco_customize_register' );
 
@@ -133,12 +167,13 @@ add_action( 'customize_register', 'bpco_customize_register' );
  * Output custom colors to CSS
  */
 function bpco_customizer_css() {
+    $nonce = wp_create_nonce( 'bpco_customizer_css' );
     $primary_color  = get_theme_mod( 'bpco_primary_color', '#1A1A1A' );
     $accent_color   = get_theme_mod( 'bpco_accent_color', '#F5DDA4' );
     $background_color = get_theme_mod( 'bpco_background_color', '#FAF7F0' );
 
     ?>
-    <style type="text/css">
+    <style type="text/css" nonce="<?php echo esc_attr( $nonce ); ?>">
         :root {
             --ink-strong: <?php echo esc_attr( $primary_color ); ?>;
             --stroke-default: <?php echo esc_attr( $primary_color ); ?>;

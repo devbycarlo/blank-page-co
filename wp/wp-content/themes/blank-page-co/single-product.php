@@ -115,14 +115,26 @@ $product_categories = get_the_terms( get_the_ID(), 'product_category' );
 
                     <div class="product-actions">
                         <?php if ( $download_url ) : ?>
-                            <a href="<?php echo esc_url( $download_url ); ?>" class="btn primary product-buy-btn" target="_blank" rel="noopener noreferrer">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                                    <polyline points="7 10 12 15 17 10"></polyline>
-                                    <line x1="12" y1="15" x2="12" y2="3"></line>
-                                </svg>
-                                <?php esc_html_e( 'Download Now', 'blank-page-co' ); ?>
-                            </a>
+                            <?php $download_nonce = wp_create_nonce( 'bpco_download_' . get_the_ID() ); ?>
+                            <?php $purchased = bpco_user_has_purchased( get_the_ID() ); ?>
+                            <?php if ( $purchased ) : ?>
+                                <a href="<?php echo esc_url( add_query_arg( array(
+                                    'bpco_download' => 1,
+                                    'product_id'    => get_the_ID(),
+                                    'nonce'         => $download_nonce,
+                                ), home_url( '/' ) ) ); ?>" class="btn primary product-buy-btn" target="_blank" rel="noopener noreferrer">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                        <polyline points="7 10 12 15 17 10"></polyline>
+                                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                                    </svg>
+                                    <?php esc_html_e( 'Download Now', 'blank-page-co' ); ?>
+                                </a>
+                            <?php else : ?>
+                                <a href="#" class="btn primary product-buy-btn" aria-disabled="true" style="opacity: 0.5;">
+                                    <?php esc_html_e( 'Purchase Required', 'blank-page-co' ); ?>
+                                </a>
+                            <?php endif; ?>
                         <?php else : ?>
                             <a href="#" class="btn primary product-buy-btn">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -235,11 +247,9 @@ $product_categories = get_the_terms( get_the_ID(), 'product_category' );
                             </div>
                             <div class="product-card-content">
                                 <span class="product-card-category"><?php esc_html_e( 'Digital Product', 'blank-page-co' ); ?></span>
-                                <h3 class="product-card-title">
-                                    <a href="#"><?php echo esc_html( $product['title'] ); ?></a>
-                                </h3>
+<h3 class="product-card-title"><?php echo esc_html( $product['title'] ); ?></h3>
                                 <div class="product-card-price"><?php echo esc_html( $product['price'] ); ?></div>
-                                <a href="#" class="btn primary" style="width: 100%;"><?php esc_html_e( 'View Product', 'blank-page-co' ); ?></a>
+                                <span class="btn primary placeholder-btn" style="width: 100%; opacity: 0.5; pointer-events: none;"><?php esc_html_e( 'View Product', 'blank-page-co' ); ?></span>
                             </div>
                         </article>
                     <?php endforeach; ?>

@@ -454,3 +454,63 @@ function bpco_save_product_meta( $post_id ) {
     }
 }
 add_action( 'save_post_product', 'bpco_save_product_meta' );
+
+/**
+ * Check if current user has purchased a product
+ */
+function bpco_user_has_purchased( $product_id ) {
+    return ! empty( get_user_meta( get_current_user_id(), 'bpco_purchased_'.intval( $product_id ), true ) );
+}
+
+/**
+ * Mark current user as having purchased a product
+ */
+function bpco_mark_purchase( $product_id ) {
+    $product_id = intval( $product_id );
+    if ( ! get_user_meta( get_current_user_id(), 'bpco_purchased_'.$product_id, true ) ) {
+        add_user_meta( get_current_user_id(), 'bpco_purchased_'.$product_id, true, true );
+    }
+}
+
+/**
+ * Handle product download requests with nonce + purchase verification
+ */
+function bpco_handle_download() {
+    if ( ! isset( $_GET['bpco_download'] ) || ! isset( $_GET['product_id'] ) || ! isset( $_GET['nonce'] ) ) {
+        return;
+    }
+
+    $product_id = intval( $_GET['product_id'] );
+    $nonce      = sanitize_text_field( wp_unslash( $_GET['nonce'] ) );
+
+    if ( ! wp_verify_nonce( $nonce, 'bpco_download_' . $product_id ) ) {
+        wp_die(
+            esc_html__( 'Invalid or expired download link.', 'blank-page-co' ),
+            esc_html__( 'Download Error', 'blank-page-co' ),
+            array( 'response' => 403 )
+        );
+    }
+
+    if ( ! bpco_user_has_purchased( $product_id ) ) {
+        wp_die(
+            esc_html__( 'You must purchase this product before downloading.', 'blank-page-co' ),
+            esc_html__( 'Purchase Required', 'blank-page-co' ),
+            array( 'response' => 403 )
+        );
+    }
+
+    $download_url = get_post_meta( $product_id, '_bpco_product_download_url', true );
+    if ( empty( $download_url ) ) {
+        wp_die(
+            esc_html__( 'Download file not available.', 'blank-page-co' ),
+            esc_html__( 'Download Error', 'blank-page-co' ),
+            array( 'response' => 404 )
+        );
+    }
+
+    wp_safe_redirect( esc_url_raw( $download_url ) );
+    exit;
+}
+add_action( 'init', 'bpco_handle_download' );
+
+/* That's all, stop editing! Happy publishing. */

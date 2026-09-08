@@ -263,6 +263,12 @@ h3 { font-size: var(--fs-h3); }
     gap: var(--s-6);
 }
 
+.post-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--s-6);
+}
+
 .product-card {
     background: var(--surface-card);
     border: var(--stroke-bold) solid var(--stroke-default);
@@ -849,6 +855,68 @@ h3 { font-size: var(--fs-h3); }
     color: var(--ink-faint);
     text-decoration: line-through;
     margin-left: var(--s-2);
+}
+
+/* --- Post Card (blog/archive) --- */
+.post-card {
+    background: var(--surface-card);
+    border: var(--stroke-bold) solid var(--stroke-default);
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    transition: transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast);
+}
+
+.post-card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-offset-md);
+}
+
+.post-card .post-card-image {
+    aspect-ratio: 16 / 9;
+    background: var(--surface-soft);
+    overflow: hidden;
+}
+
+.post-card .post-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.post-card .post-card-content {
+    padding: var(--s-5);
+}
+
+.post-card .post-card-date {
+    display: inline-block;
+    padding: 2px 10px;
+    background: var(--surface-soft);
+    border-radius: var(--r-pill);
+    font-size: var(--fs-tiny);
+    font-weight: 500;
+    color: var(--ink-muted);
+    letter-spacing: 0.04em;
+    margin-bottom: var(--s-3);
+}
+
+.post-card .post-card-title {
+    font-size: var(--fs-h3);
+    font-weight: 600;
+    margin-bottom: var(--s-2);
+}
+
+.post-card .post-card-title a {
+    color: var(--ink-strong);
+}
+
+.post-card .post-card-title a:hover {
+    color: var(--ink-muted);
+}
+
+.post-card .post-card-excerpt {
+    color: var(--ink-muted);
+    font-size: var(--fs-small);
+    margin-bottom: var(--s-4);
 }
 
 /* --- Responsive --- */

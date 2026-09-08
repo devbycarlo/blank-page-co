@@ -48,14 +48,14 @@ define( 'DB_COLLATE', '' );
  *
  * @since 2.6.0
  */
-define( 'AUTH_KEY',         'put your unique phrase here' );
-define( 'SECURE_AUTH_KEY',  'put your unique phrase here' );
-define( 'LOGGED_IN_KEY',    'put your unique phrase here' );
-define( 'NONCE_KEY',        'put your unique phrase here' );
-define( 'AUTH_SALT',        'put your unique phrase here' );
-define( 'SECURE_AUTH_SALT', 'put your unique phrase here' );
-define( 'LOGGED_IN_SALT',   'put your unique phrase here' );
-define( 'NONCE_SALT',       'put your unique phrase here' );
+define( 'AUTH_KEY',         isset( $_ENV['AUTH_KEY'] ) ? $_ENV['AUTH_KEY'] : 'put your unique phrase here' );
+define( 'SECURE_AUTH_KEY',  isset( $_ENV['SECURE_AUTH_KEY'] ) ? $_ENV['SECURE_AUTH_KEY'] : 'put your unique phrase here' );
+define( 'LOGGED_IN_KEY',    isset( $_ENV['LOGGED_IN_KEY'] ) ? $_ENV['LOGGED_IN_KEY'] : 'put your unique phrase here' );
+define( 'NONCE_KEY',        isset( $_ENV['NONCE_KEY'] ) ? $_ENV['NONCE_KEY'] : 'put your unique phrase here' );
+define( 'AUTH_SALT',        isset( $_ENV['AUTH_SALT'] ) ? $_ENV['AUTH_SALT'] : 'put your unique phrase here' );
+define( 'SECURE_AUTH_SALT', isset( $_ENV['SECURE_AUTH_SALT'] ) ? $_ENV['SECURE_AUTH_SALT'] : 'put your unique phrase here' );
+define( 'LOGGED_IN_SALT',   isset( $_ENV['LOGGED_IN_SALT'] ) ? $_ENV['LOGGED_IN_SALT'] : 'put your unique phrase here' );
+define( 'NONCE_SALT',       isset( $_ENV['NONCE_SALT'] ) ? $_ENV['NONCE_SALT'] : 'put your unique phrase here' );
 
 /**#@-*/
 

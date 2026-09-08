@@ -14,9 +14,9 @@ get_header();
     <section class="hero">
         <div class="container">
             <div class="hero-content">
-                <h1><?php echo esc_html( get_bloginfo( 'name' ) ); ?></h1>
-                <p><?php echo esc_html( get_bloginfo( 'description' ) ); ?></p>
-                <a href="#products" class="btn primary"><?php esc_html_e( 'Browse Collection', 'blank-page-co' ); ?></a>
+                <h1><?php echo esc_html( get_theme_mod( 'bpco_hero_headline', get_bloginfo( 'name' ) ); ?></h1>
+                <p><?php echo esc_html( get_theme_mod( 'bpco_hero_subheadline', get_bloginfo( 'description' ) ); ?></p>
+                <a href="<?php echo esc_url( get_theme_mod( 'bpco_hero_button_url', '#products' ) ); ?>" class="btn primary"><?php echo esc_html( get_theme_mod( 'bpco_hero_button_text', 'Browse Collection' ); ); ?></a>
             </div>
         </div>
     </section>
@@ -168,13 +168,11 @@ get_header();
                             </svg>
                         </div>
                     </div>
-                    <div class="product-card-content">
+<div class="product-card-content">
                         <span class="product-card-category"><?php echo esc_html( $product['category'] ); ?></span>
-                        <h3 class="product-card-title">
-                            <a href="#"><?php echo esc_html( $product['title'] ); ?></a>
-                        </h3>
+                        <h3 class="product-card-title"><?php echo esc_html( $product['title'] ); ?></h3>
                         <div class="product-card-price"><?php echo esc_html( $product['price'] ); ?></div>
-                        <a href="#" class="btn primary" style="width: 100%;"><?php esc_html_e( 'View Product', 'blank-page-co' ); ?></a>
+                        <span class="btn primary placeholder-btn" style="width: 100%; opacity: 0.5; pointer-events: none;"><?php esc_html_e( 'View Product', 'blank-page-co' ); ?></span>
                     </div>
                 </article>
                 <?php
