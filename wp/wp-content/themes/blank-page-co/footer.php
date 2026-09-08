@@ -70,6 +70,7 @@
     </footer>
 </div>
 
+<script defer src="/_vercel/insights/script.js"></script>
 <?php wp_footer(); ?>
 </body>
 </html>
