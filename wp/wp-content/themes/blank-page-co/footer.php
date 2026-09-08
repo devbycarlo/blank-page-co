@@ -36,8 +36,8 @@
                     <h3 class="footer-heading"><?php esc_html_e( 'Resources', 'blank-page-co' ); ?></h3>
                     <ul class="footer-links">
                         <li><a href="<?php echo esc_url( home_url( '/help' ) ); ?>"><?php esc_html_e( 'Help Center', 'blank-page-co' ); ?></a></li>
-                        <li><a href="<?php echo esc_url( home_url( '/privacy-policy' ) ); ?>><?php esc_html_e( 'Privacy Policy', 'blank-page-co' ); ?></a></li>
-                        <li><a href="<?php echo esc_url( home_url( '/terms' ) ); ?>><?php esc_html_e( 'Terms of Service', 'blank-page-co' ); ?></a></li>
+                        <li><a href="<?php echo esc_url( home_url( '/privacy-policy' ) ); ?>"><?php esc_html_e( 'Privacy Policy', 'blank-page-co' ); ?></a></li>
+                        <li><a href="<?php echo esc_url( home_url( '/terms' ) ); ?>"><?php esc_html_e( 'Terms of Service', 'blank-page-co' ); ?></a></li>
                     </ul>
                 </div>
 
