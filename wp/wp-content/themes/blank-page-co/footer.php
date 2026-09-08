@@ -79,7 +79,7 @@
             </div>
 
             <div class="footer-bottom">
-                <p>&copy; <?php echo date( 'Y' ); ?> <?php bloginfo( 'name' ); ?>. <?php echo esc_html( get_theme_mod( 'bpco_footer_copyright', 'All rights reserved' ); ); ?></p>
+                <p>&copy; <?php echo date( 'Y' ); ?> <?php bloginfo( 'name' ); ?>. <?php echo esc_html( get_theme_mod( 'bpco_footer_copyright', 'All rights reserved' ) ); ?></p>
             </div>
         </div>
     </footer>
