@@ -14,9 +14,9 @@ get_header();
     <section class="hero">
         <div class="container">
             <div class="hero-content">
-                <h1><?php echo esc_html( get_theme_mod( 'bpco_hero_headline', get_bloginfo( 'name' ) ); ?></h1>
-                <p><?php echo esc_html( get_theme_mod( 'bpco_hero_subheadline', get_bloginfo( 'description' ) ); ?></p>
-                <a href="<?php echo esc_url( get_theme_mod( 'bpco_hero_button_url', '#products' ) ); ?>" class="btn primary"><?php echo esc_html( get_theme_mod( 'bpco_hero_button_text', 'Browse Collection' ); ); ?></a>
+                <h1><?php echo esc_html( get_theme_mod( 'bpco_hero_headline', get_bloginfo( 'name' ) ) ); ?></h1>
+                <p><?php echo esc_html( get_theme_mod( 'bpco_hero_subheadline', get_bloginfo( 'description' ) ) ); ?></p>
+                <a href="<?php echo esc_url( get_theme_mod( 'bpco_hero_button_url', '#products' ) ); ?>" class="btn primary"><?php echo esc_html( get_theme_mod( 'bpco_hero_button_text', 'Browse Collection' ) ); ?></a>
             </div>
         </div>
     </section>
